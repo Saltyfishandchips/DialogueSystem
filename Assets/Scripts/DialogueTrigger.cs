@@ -52,7 +52,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void DialogueStart(object sender, EventArgs eventArgs) {
         // 只有当玩家在距离范围内并且对话未触发时调用
-        if (isPlayerInRange && !DialogueManager.Instance.isDialogueIsContinue) {
+        if (isPlayerInRange) {
             // Debug.Log(inkJosn);
             DialogueManager.Instance.InitializedStroy(inkJosn);
         }

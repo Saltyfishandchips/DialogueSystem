@@ -10,6 +10,9 @@ public class EnhancedInput : MonoBehaviour
     public event EventHandler OnInteractEvent;
 
     public event EventHandler OnDialogueInteractEvent;
+
+    
+
    
     public enum Binding {
         Move_Left,
@@ -30,12 +33,12 @@ public class EnhancedInput : MonoBehaviour
         gameInput.Player.DialogueInput.performed += DialogueInteractButtonPressed;
 
     }
+    private void Start() {
+        
+    }
 
 
     public Vector2 GetInputVectorNormalized() {
-        if (DialogueManager.Instance.isDialogueIsContinue) {
-            return Vector2.zero;
-        }
 
         //使用增强输入
         Vector2 inputVec = gameInput.Player.Move.ReadValue<Vector2>();
@@ -52,4 +55,16 @@ public class EnhancedInput : MonoBehaviour
         OnDialogueInteractEvent?.Invoke(this, EventArgs.Empty);
     }
     
+
+    // 对话开始时需要禁用输入
+    private void DialogueDisableInput() {
+        gameInput.Player.Move.Disable();
+        gameInput.Player.Intertact.Disable();
+    }
+
+    // 对话结束时需要重启输入
+    private void DialogueEnableInput() {
+        gameInput.Player.Move.Enable();
+        gameInput.Player.Intertact.Enable();
+    }
 }

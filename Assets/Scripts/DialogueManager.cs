@@ -12,8 +12,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
-    public bool isDialogueIsContinue {get; private set;}
+    private bool isDialogueIsContinue;
     private bool isDialogueIsInteract;
+
+    public event EventHandler OnStoryStart;
+    public event EventHandler OnStoryEnd;
 
     private void Awake() {
         if (Instance != null) {
@@ -49,6 +52,9 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(true);
         isDialogueIsContinue = true;
 
+        //故事开始
+        OnStoryStart?.Invoke(this, EventArgs.Empty);
+
         ContinueDialogue();
     }
 
@@ -56,6 +62,9 @@ public class DialogueManager : MonoBehaviour
         isDialogueIsContinue= false;
         dialoguePanel.SetActive(false);
         dialogueText.text = null;
+
+        //故事结束
+        OnStoryEnd?.Invoke(this, EventArgs.Empty);
 
     }
 
