@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Ink.Runtime;
 using System;
 using TMPro;
@@ -10,7 +11,9 @@ public class DialogueManager : MonoBehaviour
     private Story currentStory;
 
     [SerializeField] private GameObject dialoguePanel;
-    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI dialogueText;    
+    [SerializeField] private Button buttonPrefab;
+    [SerializeField] private Canvas canvas;
 
     private bool isDialogueIsContinue;
     private bool isDialogueIsInteract;
@@ -23,8 +26,6 @@ public class DialogueManager : MonoBehaviour
             throw new System.Exception("DialogueManager.Instance has exsited!");
         }
         Instance = this;
-        
-
     }
 
     private void Start()
@@ -69,6 +70,18 @@ public class DialogueManager : MonoBehaviour
     }
 
     private void ContinueDialogue() {
+        if (currentStory.currentChoices.Count > 0) {
+            for (int i = 0; i < currentStory.currentChoices.Count; ++i) {
+                Choice choice = currentStory.currentChoices[i];
+                Button button = CreateChoiceView (choice.text.Trim ());
+
+                button.onClick.AddListener(delegate {
+                    OnClickChoiceButton (choice);
+                });
+            }
+        }
+
+
         if (currentStory.canContinue) {
             dialogueText.text = currentStory.Continue();
         }
@@ -80,4 +93,26 @@ public class DialogueManager : MonoBehaviour
     private void DialogueInteract(object sender, EventArgs eventArgs) {
         isDialogueIsInteract = true;
     }
+
+    Button CreateChoiceView (string text) {
+		// Creates the button from a prefab
+		Button choice = Instantiate (buttonPrefab) as Button;
+		choice.transform.SetParent (canvas.transform, false);
+		
+		// Gets the text from the button prefab
+		Text choiceText = choice.GetComponentInChildren<Text> ();
+		choiceText.text = text;
+
+		// Make the button expand to fit the text
+		HorizontalLayoutGroup layoutGroup = choice.GetComponent <HorizontalLayoutGroup> ();
+		layoutGroup.childForceExpandHeight = false;
+
+		return choice;
+	}
+
+
+    void OnClickChoiceButton (Choice choice) {
+		currentStory.ChooseChoiceIndex (choice.index);
+		ContinueDialogue();
+	}
 }

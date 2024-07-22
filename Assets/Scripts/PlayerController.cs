@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
         //胶囊体碰撞检测
         // bool canMove = !QueryCapsuleCollision(playerHeight, playerRaidus, moveVec, moveDistance);
 
-
         transform.position += moveVec * moveDistance;      
     }
 }

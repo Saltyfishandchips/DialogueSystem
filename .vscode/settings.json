@@ -52,5 +52,5 @@
         "Temp/": true
     },
     "dotnet.preferCSharpExtension": true,
-    "dotnet.defaultSolution": "Dialogue.sln"
+    "dotnet.defaultSolution": "DialogueSystem.sln"
 }
