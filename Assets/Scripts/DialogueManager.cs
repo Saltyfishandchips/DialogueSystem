@@ -13,10 +13,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;    
     [SerializeField] private Button buttonPrefab;
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject buttonObject;
 
     private bool isDialogueIsContinue;
     private bool isDialogueIsInteract;
+    private bool isInChose = false;
 
     public event EventHandler OnStoryStart;
     public event EventHandler OnStoryEnd;
@@ -70,7 +71,12 @@ public class DialogueManager : MonoBehaviour
     }
 
     private void ContinueDialogue() {
-        if (currentStory.currentChoices.Count > 0) {
+        if (isInChose) return;
+
+        if (currentStory.canContinue) {
+            dialogueText.text = currentStory.Continue();
+        }
+        else if (currentStory.currentChoices.Count > 0) {
             for (int i = 0; i < currentStory.currentChoices.Count; ++i) {
                 Choice choice = currentStory.currentChoices[i];
                 Button button = CreateChoiceView (choice.text.Trim ());
@@ -78,14 +84,11 @@ public class DialogueManager : MonoBehaviour
                 button.onClick.AddListener(delegate {
                     OnClickChoiceButton (choice);
                 });
+
+                isInChose = true;
             }
         }
-
-
-        if (currentStory.canContinue) {
-            dialogueText.text = currentStory.Continue();
-        }
-        else {
+        else{
             ExitStroy();
         }
     }
@@ -97,15 +100,11 @@ public class DialogueManager : MonoBehaviour
     Button CreateChoiceView (string text) {
 		// Creates the button from a prefab
 		Button choice = Instantiate (buttonPrefab) as Button;
-		choice.transform.SetParent (canvas.transform, false);
+		choice.transform.SetParent (buttonObject.transform, false);
 		
 		// Gets the text from the button prefab
-		Text choiceText = choice.GetComponentInChildren<Text> ();
+		TextMeshProUGUI choiceText = choice.GetComponentInChildren<TextMeshProUGUI> ();
 		choiceText.text = text;
-
-		// Make the button expand to fit the text
-		HorizontalLayoutGroup layoutGroup = choice.GetComponent <HorizontalLayoutGroup> ();
-		layoutGroup.childForceExpandHeight = false;
 
 		return choice;
 	}
@@ -113,6 +112,18 @@ public class DialogueManager : MonoBehaviour
 
     void OnClickChoiceButton (Choice choice) {
 		currentStory.ChooseChoiceIndex (choice.index);
-		ContinueDialogue();
+        
+        int childCount = buttonObject.transform.childCount;
+        for (int i = childCount - 1; i >= 0; --i) {
+            Destroy(buttonObject.transform.GetChild(i).gameObject);
+        }
+
+        //选项选完直接进入下一条目录
+        if (currentStory.canContinue) {
+            dialogueText.text = currentStory.Continue();
+        }
+
+        isInChose = false;
+		// ContinueDialogue();
 	}
 }

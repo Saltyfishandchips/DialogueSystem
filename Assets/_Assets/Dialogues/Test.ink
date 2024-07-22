@@ -1,23 +1,19 @@
+->main
 
-This is a test!
-This is a UI!
-This is a Show!
-*1 + 1 
--> Right
-*2 + 2
--> Wrong 
+=== main ===
+Your choice?
+    + [Fire]
+        -> chosen("Fire")
+    + [Water]
+        -> chosen("Water")
+    + [Dirt]
+        -> chosen("Dirt")
 
-== Right
-Yes 
--> Combine
-
-
-== Wrong
-No 
--> Combine
-
-
-==Combine
-Done!
-
+=== chosen(pokemon) ===
+you chose {pokemon}!
+hhhh
+jhhhh
+you chose {pokemon}!
+hhhhh
+hhhh
 ->END

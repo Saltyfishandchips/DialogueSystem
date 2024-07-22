@@ -34,7 +34,8 @@ public class EnhancedInput : MonoBehaviour
 
     }
     private void Start() {
-        
+        DialogueManager.Instance.OnStoryStart += DialogueDisableInput;
+        DialogueManager.Instance.OnStoryEnd += DialogueEnableInput;
     }
 
 
@@ -57,13 +58,13 @@ public class EnhancedInput : MonoBehaviour
     
 
     // 对话开始时需要禁用输入
-    private void DialogueDisableInput() {
+    private void DialogueDisableInput(object sender, EventArgs eventArgs) {
         gameInput.Player.Move.Disable();
         gameInput.Player.Intertact.Disable();
     }
 
     // 对话结束时需要重启输入
-    private void DialogueEnableInput() {
+    private void DialogueEnableInput(object sender, EventArgs eventArgs) {
         gameInput.Player.Move.Enable();
         gameInput.Player.Intertact.Enable();
     }
