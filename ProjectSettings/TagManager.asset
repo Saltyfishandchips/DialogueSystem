@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - BackGround
+  - Money
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - FrontGround
+  - Water
+  - UI
+  - Dialogue
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: BackGround
+    uniqueID: 2588221229
+    locked: 0
+  - name: NPC
+    uniqueID: 1440194025
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Dialogue
+    uniqueID: 4195797017
+    locked: 0
