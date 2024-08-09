@@ -1,0 +1,30 @@
+﻿[
+  {
+    "Day": 1.0,
+    "Index": 1.0,
+    "NpcName": "秦文浩",
+    "PreTalk": "D1_1_preDialogues",
+    "ComparisonTable": "D1_2_preDialogues",
+    "SpecialComparisonTable": "D1_3_preDialogues",
+    "JudgeCompelete": "D1_4_preDialogues",
+    "Trial": "D1_5_preDialogues",
+    "Resurrection": null,
+    "Evidence": "D1_6_preDialogues",
+    "Bribe": "D2_1_preDialogues",
+    "TrialCompelete": "D2_8_preDialogues"
+  },
+  {
+    "Day": 1.0,
+    "Index": 2.0,
+    "NpcName": "王丽娜",
+    "PreTalk": "D2_2_preDialogues",
+    "ComparisonTable": "D2_3_preDialogues",
+    "SpecialComparisonTable": "D2_4_preDialogues",
+    "JudgeCompelete": null,
+    "Trial": "D2_5_preDialogues",
+    "Resurrection": null,
+    "Evidence": "D2_6_preDialogues",
+    "Bribe": "D2_7_preDialogues",
+    "TrialCompelete": "D2_9_preDialogues"
+  }
+]
